@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dice Game by Mohammed Ahmed</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Lobster|Poppins:400,700&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      background-color: #393E46;
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+    }
+    
+    .hero-section {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+    
+    .hero-content {
+      z-index: 2;
+    }
+    
+    .hero-title {
+      font-family: 'Lobster', cursive;
+      color: #4ECCA3;
+      font-size: 5rem;
+      text-shadow: 5px 0 #232931;
+      opacity: 0;
+    }
+    
+    .hero-subtitle {
+      color: #EEEEEE;
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      opacity: 0;
+    }
+    
+    .floating-dice {
+      position: absolute;
+      opacity: 0.2;
+      z-index: 1;
+    }
+    
+    .btn-play {
+      background-color: #4ECCA3;
+      color: #232931;
+      font-weight: bold;
+      border: none;
+      padding: 10px 30px;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      opacity: 0;
+    }
+    
+    .btn-play:hover {
+      background-color: #232931;
+      color: #4ECCA3;
+      transform: scale(1.05);
+    }
+    
+    .game-section {
+      padding: 5rem 0;
+      background-color: #232931;
+    }
+    
+    .game-container {
+      width: 70%;
+      margin: auto;
+      text-align: center;
+      padding: 2rem;
+      border-radius: 15px;
+      background-color: #393E46;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+      opacity: 0;
+    }
+    
+    .game-title {
+      margin: 30px;
+      font-family: 'Lobster', cursive;
+      text-shadow: 3px 0 #232931;
+      font-size: 4rem;
+      color: #4ECCA3;
+    }
+    
+    .dice {
+      text-align: center;
+      display: inline-block;
+      margin: 0 2rem;
+    }
+    
+    .player-name {
+      font-size: 2rem;
+      color: #4ECCA3;
+      font-family: 'Indie Flower', cursive;
+    }
+    
+    .dice-img {
+      width: 80%;
+      transition: all 0.3s ease;
+    }
+    
+    .dice-img:hover {
+      transform: rotate(15deg);
+    }
+    
+    .btn-roll {
+      background-color: #4ECCA3;
+      color: #232931;
+      border: none;
+      padding: 10px 30px;
+      font-size: 1.5rem;
+      font-family: 'Indie Flower', cursive;
+      cursor: pointer;
+      border-radius: 50px;
+      margin-top: 2rem;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-roll:hover {
+      background-color: #232931;
+      color: #4ECCA3;
+      transform: scale(1.05);
+    }
+    
+    .profile-section {
+      padding: 5rem 0;
+      background-color: #4ECCA3;
+      color: #232931;
+    }
+    
+    .profile-container {
+      text-align: center;
+      opacity: 0;
+    }
+    
+    .profile-title {
+      font-family: 'Lobster', cursive;
+      font-size: 3rem;
+      margin-bottom: 2rem;
+    }
+    
+    .profile-img-container {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 2rem;
+      border: 5px solid #232931;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+    
+    .profile-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .profile-text {
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+    
+    .skills-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+    
+    .skill-badge {
+      background-color: #232931;
+      color: #4ECCA3;
+      padding: 5px 15px;
+      border-radius: 20px;
+      margin: 5px;
+      font-size: 0.9rem;
+    }
+    
+    footer {
+      background-color: #232931;
+      color: #EEEEEE;
+      text-align: center;
+      padding: 2rem 0;
+      font-family: 'Indie Flower', cursive;
+    }
+    
+    .contact-link {
+      color: #4ECCA3;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .contact-link:hover {
+      color: #EEEEEE;
+    }
+    
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 3rem;
+      }
+      
+      .game-container {
+        width: 90%;
+      }
+      
+      .game-title {
+        font-size: 3rem;
+      }
+      
+      .dice {
+        margin: 0 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Dice Game</h1>
+      <p class="hero-subtitle">A fun game of chance developed by Mohammed Ahmed</p>
+      <a href="./dicee.html" class="btn btn-play">Play Now</a>
+    </div>
+    
+    <!-- Floating Dice Animation Elements -->
+    <img src="./images/dice1.png" alt="Dice" class="floating-dice dice-1" style="top: 20%; left: 10%;">
+    <img src="./images/dice2.png" alt="Dice" class="floating-dice dice-2" style="top: 70%; left: 15%;">
+    <img src="./images/dice3.png" alt="Dice" class="floating-dice dice-3" style="top: 30%; right: 15%;">
+    <img src="./images/dice3.png" alt="Dice" class="floating-dice dice-4" style="top: 80%; right: 10%;">
+    <img src="./images/dice3.png" alt="Dice" class="floating-dice dice-5" style="top: 50%; left: 50%;">
+  </section>
+  
+
+ 
+  
+  <!-- Profile Section -->
+  <section class="profile-section">
+    <div class="container">
+      <div class="profile-container">
+        <h2 class="profile-title">Developer Profile</h2>
+        
+        <div class="profile-img-container">
+          <img class="profile-img" src="./Screenshot 2025-04-22 075234.png" alt="Mohammed Ahmed">
+        </div>
+        
+        <h3>Mohd Ahmed</h3>
+        <p class="profile-text">
+          Hi, I'm Mohammed Ahmed, a passionate web developer with expertise in creating interactive web applications.
+          I love building fun games and applications that provide enjoyable experiences for users.
+          This dice game is one of my projects that demonstrates my skills in HTML, CSS, and JavaScript.
+        </p>
+        
+        
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>© 2025 Mohd Ahmed | Dice Game</p>
+      <p>Contact: <a href="https://www.linkedin.com/in/mohammad-ahmed-094859245/" class="contact-link">Linkedin</a></p>
+    </div>
+  </footer>
+  
+  <!-- Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- GSAP Animation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  
+  <script>
+    // Initialize GSAP animations
+    document.addEventListener('DOMContentLoaded', function() {
+      // Hero section animations
+      gsap.to('.hero-title', {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power3.out'
+      });
+      
+      gsap.to('.hero-subtitle', {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        delay: 0.3,
+        ease: 'power3.out'
+      });
+      
+      gsap.to('.btn-play', {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        delay: 0.6,
+        ease: 'power3.out'
+      });
+      
+      // Floating dice animations
+      gsap.to('.dice-1', {
+        opacity: 0.2,
+        duration: 1,
+        delay: 0.2,
+        ease: 'power2.out',
+        x: '0%',
+        y: '0%'
+      });
+      
+      gsap.to('.dice-2', {
+        opacity: 0.2,
+        duration: 1,
+        delay: 0.4,
+        ease: 'power2.out',
+        x: '0%',
+        y: '0%'
+      });
+      
+      gsap.to('.dice-3', {
+        opacity: 0.2,
+        duration: 1,
+        delay: 0.6,
+        ease: 'power2.out',
+        x: '0%',
+        y: '0%'
+      });
+      
+      gsap.to('.dice-4', {
+        opacity: 0.2,
+        duration: 1,
+        delay: 0.8,
+        ease: 'power2.out',
+        x: '0%',
+        y: '0%'
+      });
+      
+      gsap.to('.dice-5', {
+        opacity: 0.2,
+        duration: 1,
+        delay: 1,
+        ease: 'power2.out',
+        x: '0%',
+        y: '0%'
+      });
+      
+      // Floating animation for dice
+      gsap.to('.floating-dice', {
+        y: '20px',
+        duration: 2,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+        stagger: 0.2
+      });
+      
+      // Scroll animations
+      gsap.registerPlugin(ScrollTrigger);
+      
+      // Game section animation
+      gsap.to('.game-container', {
+        scrollTrigger: {
+          trigger: '.game-section',
+          start: 'top 80%'
+        },
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power3.out'
+      });
+      
+      // Profile section animation
+      gsap.to('.profile-container', {
+        scrollTrigger: {
+          trigger: '.profile-section',
+          start: 'top 80%'
+        },
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power3.out'
+      });
+      
+      // Dice roll functionality
+      const btnRoll = document.querySelector('.btn-roll');
+      const img1 = document.querySelector('.img1');
+      const img2 = document.querySelector('.img2');
+      const gameTitle = document.querySelector('.game-title');
+      
+      btnRoll.addEventListener('click', function() {
+        // Animate dice shake
+        gsap.to('.dice-img', {
+          rotation: 360,
+          duration: 0.5,
+          ease: 'bounce.out'
+        });
+        
+        setTimeout(() => {
+          // Generate random dice values
+          const randomNumber1 = Math.floor(Math.random() * 6) + 1;
+          const randomNumber2 = Math.floor(Math.random() * 6) + 1;
+          
+          // Update dice images (using placeholders since we don't have actual dice images)
+          img1.src = `/api/placeholder/150/150?text=Dice${randomNumber1}`;
+          img2.src = `/api/placeholder/150/150?text=Dice${randomNumber2}`;
+          
+          // Update game title based on result
+          if (randomNumber1 > randomNumber2) {
+            gameTitle.textContent = "🚩 Player 1 Wins!";
+          } else if (randomNumber2 > randomNumber1) {
+            gameTitle.textContent = "Player 2 Wins! 🚩";
+          } else {
+            gameTitle.textContent = "Draw!";
+          }
+        }, 500);
+      });
+    });
+  </script>
+</body>
+</html>
